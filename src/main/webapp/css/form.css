@@ -1,0 +1,74 @@
+.contenedor-formulario {
+    max-width: 520px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+
+.contenedor-formulario h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2563eb;
+}
+
+.contenedor-formulario label {
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.contenedor-formulario input,
+.contenedor-formulario textarea,
+.contenedor-formulario select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: .25s;
+}
+
+.contenedor-formulario input:focus,
+.contenedor-formulario textarea:focus,
+.contenedor-formulario select:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 6px rgba(37, 99, 235, .20);
+}
+
+.contenedor-formulario textarea {
+    resize: vertical;
+}
+
+.contenedor-formulario button {
+    width: 100%;
+    margin-top: 28px;
+}
+
+.registro-link,
+.login-link {
+    margin-top: 20px;
+    text-align: center;
+    color: #555;
+}
+
+.registro-link a,
+.login-link a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.registro-link a:hover,
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.descripcion {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}

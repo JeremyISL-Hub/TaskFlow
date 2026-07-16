@@ -12,27 +12,41 @@ public class ConexionBD {
     private static final Properties propiedades = new Properties();
 
     static {
-        try (InputStream input = ConexionBD.class.getClassLoader()
-                .getResourceAsStream("database.properties")) {
+        try {
 
-            if (input == null) {
-                throw new RuntimeException("No se encontró el archivo database.properties");
+            Class.forName("org.postgresql.Driver");
+
+            try (InputStream input = ConexionBD.class.getClassLoader()
+                    .getResourceAsStream("database.properties")) {
+
+                if (input == null) {
+                    throw new RuntimeException("No se encontró el archivo database.properties");
+                }
+
+                propiedades.load(input);
             }
 
-            propiedades.load(input);
-
-        } catch (IOException e) {
-            throw new RuntimeException("Error al cargar el archivo de configuración.", e);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException("Error al cargar la configuración.", e);
         }
     }
+    
 
     public static Connection getConnection() {
 
         try {
 
-            String url = propiedades.getProperty("db.url");
-            String usuario = propiedades.getProperty("db.user");
-            String password = propiedades.getProperty("db.password");
+            String url = System.getenv("DB_URL");
+            String usuario = System.getenv("DB_USER");
+            String password = System.getenv("DB_PASSWORD");
+
+            if (url == null || usuario == null || password == null) {
+
+                url = propiedades.getProperty("db.url");
+                usuario = propiedades.getProperty("db.user");
+                password = propiedades.getProperty("db.password");
+
+            }
 
             return DriverManager.getConnection(url, usuario, password);
 

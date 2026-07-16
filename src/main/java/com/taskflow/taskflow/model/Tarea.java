@@ -19,9 +19,7 @@ public class Tarea {
     }
 
     // Constructor para crear una nueva tarea
-    public Tarea(String titulo, String descripcion, String estado,
-                 Date fechaLimite, UUID usuarioId) {
-
+    public Tarea(String titulo, String descripcion, String estado, Date fechaLimite, UUID usuarioId) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -31,8 +29,7 @@ public class Tarea {
 
     // Constructor completo
     public Tarea(UUID id, String titulo, String descripcion, String estado,
-                 Date fechaLimite, Timestamp fechaCreacion, UUID usuarioId) {
-
+            Date fechaLimite, Timestamp fechaCreacion, UUID usuarioId) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;

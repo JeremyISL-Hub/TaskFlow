@@ -1,9 +1,26 @@
+# Maven
 target/
 
+# NetBeans
 nb-configuration.xml
-
 nbactions.xml
 
+# macOS
 .DS_Store
 
+# Base de datos (credenciales locales)
 src/main/resources/database.properties
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak
+
+# Configuración de VS Code (si alguna vez lo abres ahí)
+.vscode/
+
+# Configuración de IntelliJ (si alguna vez lo abres ahí)
+.idea/
+*.iml
