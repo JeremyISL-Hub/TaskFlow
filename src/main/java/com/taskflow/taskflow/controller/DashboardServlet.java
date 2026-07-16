@@ -41,9 +41,10 @@ public class DashboardServlet extends HttpServlet {
         int vencidas = 0;
 
         java.sql.Timestamp ahora = new java.sql.Timestamp(System.currentTimeMillis());
+        System.out.println("Hora servidor: " + ahora);
 
         for (Tarea tarea : tareas) {
-
+            System.out.println("Fecha límite: " + tarea.getFechaLimite());
             if ("Completada".equalsIgnoreCase(tarea.getEstado())) {
                 completadas++;
             } else {
