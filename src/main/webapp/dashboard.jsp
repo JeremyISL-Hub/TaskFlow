@@ -13,26 +13,12 @@
     Usuario usuario = (Usuario) session.getAttribute("usuario");
     List<Tarea> tareas = (List<Tarea>) request.getAttribute("tareas");
 
-    int total = 0;
-    int pendientes = 0;
-    int completadas = 0;
-    int porcentaje = 0;
+    int total = (Integer) request.getAttribute("total");
+    int pendientes = (Integer) request.getAttribute("pendientes");
+    int completadas = (Integer) request.getAttribute("completadas");
+    int vencidas = (Integer) request.getAttribute("vencidas");
+    int porcentaje = (Integer) request.getAttribute("porcentaje");
 
-    if (tareas != null) {
-        total = tareas.size();
-
-        for (Tarea tarea : tareas) {
-            if ("Completada".equalsIgnoreCase(tarea.getEstado())) {
-                completadas++;
-            } else {
-                pendientes++;
-            }
-        }
-
-        if (total > 0) {
-            porcentaje = (completadas * 100) / total;
-        }
-    }
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -77,17 +63,22 @@
                 <h2>Total de tareas</h2>
                 <div class="numero"><%= total %></div>
             </div>
-
+            
             <div class="tarjeta">
                 <h2>Pendientes</h2>
                 <div class="numero"><%= pendientes %></div>
             </div>
-
+            
             <div class="tarjeta">
                 <h2>Completadas</h2>
                 <div class="numero"><%= completadas %></div>
             </div>
-
+            
+            <div class="tarjeta">
+                <h2>Vencidas</h2>
+                <div class="numero"><%= vencidas %></div>
+            </div>
+            
             <div class="tarjeta">
                 <h2>Avance</h2>
                 <div class="numero"><%= porcentaje %>%</div>

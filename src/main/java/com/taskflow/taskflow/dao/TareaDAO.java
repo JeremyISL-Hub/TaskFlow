@@ -304,48 +304,6 @@ public class TareaDAO {
 
         return lista;
     }
-    
-    public boolean completarTarea(UUID idTarea) {
-
-        String sql = """
-            UPDATE tareas
-            SET estado='Completada'
-            WHERE id=?
-        """;
-
-        try(Connection con = obtenerConexion();
-            PreparedStatement ps = con.prepareStatement(sql)){
-
-            ps.setObject(1,idTarea);
-
-            return ps.executeUpdate()>0;
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-    
-    public void completarTarea(String id) {
-
-        String sql = """
-            UPDATE tareas
-            SET estado = 'Completada'
-            WHERE id = ?
-            """;
-
-        try (Connection conn = obtenerConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setObject(1, UUID.fromString(id));
-
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error al completar la tarea.", e);
-        }
-    }
 
     public boolean completarTarea(UUID idTarea, UUID usuarioId) {
 

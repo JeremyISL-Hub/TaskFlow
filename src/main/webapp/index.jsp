@@ -57,7 +57,7 @@
     <footer>
         <h3>TaskFlow</h3>
         <p>Sistema de gestión de tareas desarrollado con Java Web (Jakarta EE).</p>
-        <p>Proyecto de Programación Orientada a Objetos</p>
+        <p>Proyecto de Programación Web</p>
         <p>© 2026</p>
     </footer>
 </body>

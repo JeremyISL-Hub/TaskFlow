@@ -35,7 +35,41 @@ public class DashboardServlet extends HttpServlet {
 
         List<Tarea> tareas = dao.buscarFiltrarOrdenar(usuario.getId(), buscar, estado, orden);
 
+        int total = tareas.size();
+        int pendientes = 0;
+        int completadas = 0;
+        int vencidas = 0;
+
+        java.sql.Timestamp ahora = new java.sql.Timestamp(System.currentTimeMillis());
+
+        for (Tarea tarea : tareas) {
+
+            if ("Completada".equalsIgnoreCase(tarea.getEstado())) {
+                completadas++;
+            } else {
+
+                if (tarea.getFechaLimite() != null &&
+                        tarea.getFechaLimite().before(ahora)) {
+
+                    vencidas++;
+
+                } else {
+
+                    pendientes++;
+
+                }
+            }
+        }
+
+        int porcentaje = total == 0 ? 0 : (completadas * 100) / total;
+
         request.setAttribute("tareas", tareas);
+        request.setAttribute("total", total);
+        request.setAttribute("pendientes", pendientes);
+        request.setAttribute("completadas", completadas);
+        request.setAttribute("vencidas", vencidas);
+        request.setAttribute("porcentaje", porcentaje);
+
         request.getRequestDispatcher("dashboard.jsp").forward(request, response);
     }
 
