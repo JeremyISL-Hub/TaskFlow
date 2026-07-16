@@ -12,23 +12,25 @@ public class ConexionBD {
     private static final Properties propiedades = new Properties();
 
     static {
+
         try {
 
             Class.forName("org.postgresql.Driver");
 
-            try (InputStream input = ConexionBD.class.getClassLoader()
-                    .getResourceAsStream("database.properties")) {
+            InputStream input = ConexionBD.class.getClassLoader()
+                    .getResourceAsStream("database.properties");
 
-                if (input == null) {
-                    throw new RuntimeException("No se encontró el archivo database.properties");
-                }
-
+            if (input != null) {
                 propiedades.load(input);
+                input.close();
             }
 
         } catch (IOException | ClassNotFoundException e) {
+
             throw new RuntimeException("Error al cargar la configuración.", e);
+
         }
+
     }
     
 

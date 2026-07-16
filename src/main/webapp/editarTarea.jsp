@@ -19,8 +19,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar tarea</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/form.css">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/favicon.png">
 </head>
 <body>
