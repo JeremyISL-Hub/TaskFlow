@@ -56,7 +56,7 @@
                 </select>
 
                 <label>Fecha límite</label>
-                <input type="date" name="fechaLimite" value="<%= tarea.getFechaLimite() %>">
+                <input type="datetime-local" name="fechaLimite" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(tarea.getFechaLimite()) %>" required>
 
                 <button type="submit">Guardar cambios</button>
             </form>

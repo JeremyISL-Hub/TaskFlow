@@ -1,6 +1,5 @@
 package com.taskflow.taskflow.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -10,7 +9,7 @@ public class Tarea {
     private String titulo;
     private String descripcion;
     private String estado;
-    private Date fechaLimite;
+    private Timestamp fechaLimite;
     private Timestamp fechaCreacion;
     private UUID usuarioId;
 
@@ -19,7 +18,8 @@ public class Tarea {
     }
 
     // Constructor para crear una nueva tarea
-    public Tarea(String titulo, String descripcion, String estado, Date fechaLimite, UUID usuarioId) {
+    public Tarea(String titulo, String descripcion, String estado, Timestamp fechaLimite, UUID usuarioId) {
+
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -27,9 +27,8 @@ public class Tarea {
         this.usuarioId = usuarioId;
     }
 
-    // Constructor completo
-    public Tarea(UUID id, String titulo, String descripcion, String estado,
-            Date fechaLimite, Timestamp fechaCreacion, UUID usuarioId) {
+    public Tarea(UUID id, String titulo, String descripcion, String estado, Timestamp fechaLimite, Timestamp fechaCreacion, UUID usuarioId) {
+
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -73,11 +72,11 @@ public class Tarea {
         this.estado = estado;
     }
 
-    public Date getFechaLimite() {
+    public Timestamp getFechaLimite() {
         return fechaLimite;
     }
 
-    public void setFechaLimite(Date fechaLimite) {
+    public void setFechaLimite(Timestamp fechaLimite) {
         this.fechaLimite = fechaLimite;
     }
 

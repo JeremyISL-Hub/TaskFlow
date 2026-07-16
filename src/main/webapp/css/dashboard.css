@@ -239,3 +239,24 @@ h1 {
 .tarea-card:first-of-type {
     margin-top: 25px;
 }
+
+.btn-completar{
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:8px 15px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.btn-completar:hover{
+    background:#218838;
+}
+
+.estado.vencida{
+    background:#ffdddd;
+    color:#c62828;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;
+}

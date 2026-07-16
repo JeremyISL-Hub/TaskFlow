@@ -44,8 +44,8 @@
                 <textarea id="descripcion" name="descripcion" rows="6"
                           placeholder="Describe la tarea..."></textarea>
 
-                <label for="fechaLimite">Fecha límite</label>
-                <input type="date" id="fechaLimite" name="fechaLimite">
+                <label>Fecha y hora límite</label>
+                <input type="datetime-local" name="fechaLimite" required>
 
                 <button type="submit">Guardar tarea</button>
             </form>

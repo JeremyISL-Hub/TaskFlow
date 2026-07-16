@@ -30,7 +30,7 @@ public class TareaDAO {
             ps.setString(1, tarea.getTitulo());
             ps.setString(2, tarea.getDescripcion());
             ps.setString(3, tarea.getEstado());
-            ps.setDate(4, tarea.getFechaLimite());
+            ps.setTimestamp(4, tarea.getFechaLimite());
             ps.setObject(5, tarea.getUsuarioId());
 
             return ps.executeUpdate() > 0;
@@ -64,7 +64,7 @@ public class TareaDAO {
                 tarea.setTitulo(rs.getString("titulo"));
                 tarea.setDescripcion(rs.getString("descripcion"));
                 tarea.setEstado(rs.getString("estado"));
-                tarea.setFechaLimite(rs.getDate("fecha_limite"));
+                tarea.setFechaLimite(rs.getTimestamp("fecha_limite"));
                 tarea.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
                 tarea.setUsuarioId((UUID) rs.getObject("usuario_id"));
                 tareas.add(tarea);
@@ -97,7 +97,7 @@ public class TareaDAO {
                 tarea.setTitulo(rs.getString("titulo"));
                 tarea.setDescripcion(rs.getString("descripcion"));
                 tarea.setEstado(rs.getString("estado"));
-                tarea.setFechaLimite(rs.getDate("fecha_limite"));
+                tarea.setFechaLimite(rs.getTimestamp("fecha_limite"));
                 tarea.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
                 tarea.setUsuarioId((UUID) rs.getObject("usuario_id"));
                 return tarea;
@@ -132,7 +132,7 @@ public class TareaDAO {
                 tarea.setTitulo(rs.getString("titulo"));
                 tarea.setDescripcion(rs.getString("descripcion"));
                 tarea.setEstado(rs.getString("estado"));
-                tarea.setFechaLimite(rs.getDate("fecha_limite"));
+                tarea.setFechaLimite(rs.getTimestamp("fecha_limite"));
                 tarea.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
                 tarea.setUsuarioId((UUID) rs.getObject("usuario_id"));
                 return tarea;
@@ -161,7 +161,7 @@ public class TareaDAO {
             ps.setString(1, tarea.getTitulo());
             ps.setString(2, tarea.getDescripcion());
             ps.setString(3, tarea.getEstado());
-            ps.setDate(4, tarea.getFechaLimite());
+            ps.setTimestamp(4, tarea.getFechaLimite());
             ps.setObject(5, tarea.getId());
 
             return ps.executeUpdate() > 0;
@@ -236,7 +236,7 @@ public class TareaDAO {
                 tarea.setTitulo(rs.getString("titulo"));
                 tarea.setDescripcion(rs.getString("descripcion"));
                 tarea.setEstado(rs.getString("estado"));
-                tarea.setFechaLimite(rs.getDate("fecha_limite"));
+                tarea.setFechaLimite(rs.getTimestamp("fecha_limite"));
                 tarea.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
                 tarea.setUsuarioId((UUID) rs.getObject("usuario_id"));
                 lista.add(tarea);
@@ -292,7 +292,7 @@ public class TareaDAO {
                 tarea.setTitulo(rs.getString("titulo"));
                 tarea.setDescripcion(rs.getString("descripcion"));
                 tarea.setEstado(rs.getString("estado"));
-                tarea.setFechaLimite(rs.getDate("fecha_limite"));
+                tarea.setFechaLimite(rs.getTimestamp("fecha_limite"));
                 tarea.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
                 tarea.setUsuarioId((UUID) rs.getObject("usuario_id"));
                 lista.add(tarea);
@@ -304,5 +304,70 @@ public class TareaDAO {
 
         return lista;
     }
+    
+    public boolean completarTarea(UUID idTarea) {
 
+        String sql = """
+            UPDATE tareas
+            SET estado='Completada'
+            WHERE id=?
+        """;
+
+        try(Connection con = obtenerConexion();
+            PreparedStatement ps = con.prepareStatement(sql)){
+
+            ps.setObject(1,idTarea);
+
+            return ps.executeUpdate()>0;
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    public void completarTarea(String id) {
+
+        String sql = """
+            UPDATE tareas
+            SET estado = 'Completada'
+            WHERE id = ?
+            """;
+
+        try (Connection conn = obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setObject(1, UUID.fromString(id));
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al completar la tarea.", e);
+        }
+    }
+
+    public boolean completarTarea(UUID idTarea, UUID usuarioId) {
+
+        String sql = """
+            UPDATE tareas
+            SET estado = 'Completada'
+            WHERE id = ? AND usuario_id = ?
+        """;
+
+        try (Connection con = obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setObject(1, idTarea);
+            ps.setObject(2, usuarioId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+    
 }

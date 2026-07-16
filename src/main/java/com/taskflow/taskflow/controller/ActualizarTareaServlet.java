@@ -5,8 +5,9 @@ import com.taskflow.taskflow.model.Tarea;
 import com.taskflow.taskflow.model.Usuario;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.UUID;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -37,7 +38,8 @@ public class ActualizarTareaServlet extends HttpServlet {
         String fecha = request.getParameter("fechaLimite");
 
         if (fecha != null && !fecha.isEmpty()) {
-            tarea.setFechaLimite(Date.valueOf(fecha));
+            LocalDateTime fechaHora = LocalDateTime.parse(fecha);
+            tarea.setFechaLimite(Timestamp.valueOf(fechaHora));
         }
 
         TareaDAO dao = new TareaDAO();

@@ -149,29 +149,69 @@
                 <h3><%= tarea.getTitulo() %></h3>
                 <p><%= tarea.getDescripcion() %></p>
                 <br>
+                <%
+                boolean vencida =
+                        tarea.getFechaLimite() != null
+                        && tarea.getFechaLimite().before(new java.util.Date())
+                        && !"Completada".equalsIgnoreCase(tarea.getEstado());
+                %>
                 <strong>Estado:</strong>
                 <%
-                    if ("Completada".equalsIgnoreCase(tarea.getEstado())) {
+                if ("Completada".equalsIgnoreCase(tarea.getEstado())) {
                 %>
-                <span class="estado completada">Completada</span>
+
+                <span class="estado completada">
+                    ✅ Completada
+                </span>
+
                 <%
-                    } else {
+                } else if (vencida) {
                 %>
-                <span class="estado pendiente">Pendiente</span>
+
+                <span class="estado vencida">
+                    ⏰ Vencida
+                </span>
+
                 <%
-                    }
+                } else {
+                %>
+
+                <span class="estado pendiente">
+                    🟡 Pendiente
+                </span>
+
+                <%
+                }
                 %>
                 <br><br>
-                <strong>📅 Fecha límite:</strong> <%= tarea.getFechaLimite() %>
+                <strong>📅 Fecha límite:</strong> <%= new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(tarea.getFechaLimite()) %>
 
                 <div class="acciones">
+
+                    <% if (!"Completada".equalsIgnoreCase(tarea.getEstado())) { %>
+
+                        <form action="completarTarea" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="<%= tarea.getId() %>">
+                            <button type="submit" class="btn-completar">
+                                ✅ Completar
+                            </button>
+                        </form>
+
+                    <% } %>
+
                     <a href="editarTarea?id=<%= tarea.getId() %>">
-                        <button type="button" class="btn-editar">✏️ Editar</button>
+                        <button type="button" class="btn-editar">
+                            ✏️ Editar
+                        </button>
                     </a>
+
                     <a href="eliminarTarea?id=<%= tarea.getId() %>"
                        onclick="return confirm('¿Estás seguro de eliminar esta tarea?');">
-                        <button type="button" class="btn-eliminar">🗑️ Eliminar</button>
+                        <button type="button" class="btn-eliminar">
+                            🗑️ Eliminar
+                        </button>
                     </a>
+
                 </div>
             </div>
             <%

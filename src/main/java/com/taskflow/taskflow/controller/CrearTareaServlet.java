@@ -5,7 +5,8 @@ import com.taskflow.taskflow.model.Tarea;
 import com.taskflow.taskflow.model.Usuario;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CrearTareaServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
@@ -29,29 +30,39 @@ public class CrearTareaServlet extends HttpServlet {
 
         String titulo = request.getParameter("titulo");
         String descripcion = request.getParameter("descripcion");
-        String fecha = request.getParameter("fechaLimite");
-
+        String fechaHora = request.getParameter("fechaLimite");
+        
         Tarea tarea = new Tarea();
+
         tarea.setTitulo(titulo);
         tarea.setDescripcion(descripcion);
+
+        // Todas las tareas nuevas empiezan pendientes
         tarea.setEstado("Pendiente");
 
-        if (fecha != null && !fecha.isEmpty()) {
-            tarea.setFechaLimite(Date.valueOf(fecha));
+        
+
+        if (fechaHora != null && !fechaHora.isEmpty()) {
+
+            LocalDateTime fecha = LocalDateTime.parse(fechaHora);
+
+            tarea.setFechaLimite(Timestamp.valueOf(fecha));
+
         }
 
         tarea.setUsuarioId(usuario.getId());
 
         TareaDAO dao = new TareaDAO();
-        boolean creada = dao.crearTarea(tarea);
 
-        if (creada) {
-            request.getSession().setAttribute("mensaje", "✅ Tarea creada correctamente.");
+        if (dao.crearTarea(tarea)) {
+            request.getSession().setAttribute("mensaje",
+                    "✅ Tarea creada correctamente.");
             response.sendRedirect("dashboard");
         } else {
-            request.setAttribute("error", "No fue posible guardar la tarea.");
-            request.getRequestDispatcher("nuevaTarea.jsp").forward(request, response);
+            request.setAttribute("error",
+                    "No fue posible guardar la tarea.");
+            request.getRequestDispatcher("nuevaTarea.jsp")
+                    .forward(request, response);
         }
     }
-
 }
